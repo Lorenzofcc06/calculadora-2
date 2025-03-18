@@ -23,6 +23,15 @@
             <button type="submit">Calcular</button>
         </form>
         <h3>{{ resultado }}</h3>
+
+        {% if historico%}
+        <h4>Histórico:</h4>
+        <ul>
+            {% for calc in historico %}
+                <li>{{ calc }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 
 </body>
