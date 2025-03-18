@@ -2,9 +2,12 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
+def formatar_numero(numero):
+    return int(numero) if numero.is_integer() else numero
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html") 
 
 @app.route("/calcular", methods=["POST"])
 def calcular():
@@ -27,8 +30,10 @@ def calcular():
                 return render_template("index.html", resultado=">>> ERRO <<< Divisão por zero!")
             resultado = num1 / num2
         else:
-            return render_template("index.html", resultado=">>> ERRO <<< Operação Inválida!")        
-        return render_template("index.html", resultado=f"Resultado = {resultado}")
+            return render_template("index.html", resultado=">>> ERRO <<< Operação Inválida!") 
+
+        resultado_formatado = formatar_numero(resultado)       
+        return render_template("index.html", resultado=f"Resultado = {resultado_formatado}")
     
     except ValueError:
         return render_template("index.html", resultado=">>> ERRO <<< Digite valores númericos válidos!")
